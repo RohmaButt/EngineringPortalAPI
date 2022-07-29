@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>3977ff3a-9259-4753-9ff8-bd08b220340b</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AfinitiPortalAPI.Data\AfinitiPortalAPI.Data.csproj" />
+    <ProjectReference Include="..\AfinitiPortalAPI.Shared\AfinitiPortalAPI.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <!-- This configuration is done for dotnet publish command.
+     It will make sure only environment specific files will be copied -->
+  <ItemGroup Condition=" '$(EnvironmentName)' == 'Development'">
+    <Content Remove="appsettings.Production.json" />
+    <Content Remove="appsettings.Test.json" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(EnvironmentName)' == 'Test'">
+    <Content Remove="appsettings.Production.json" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(EnvironmentName)' == 'Production'">
+    <Content Remove="appsettings.Test.json" />
+  </ItemGroup>
+</Project>
